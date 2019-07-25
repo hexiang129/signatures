@@ -2,10 +2,11 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 
-totalSigCnt=int(19.5*10000)  #assume we submit 200k signatures
-validratio = 0.75
-dupratioAmongValid = 0.02
-sampleRate = 0.03
+threshold = 8 #from last row in excel template
+totalSigCnt=int(19.5*10000)  #assume we submit 195k signatures
+validratio = 0.75  #assume 75% of it is valid
+dupratioAmongValid = 0.02 #assume among the valid signatures, 2% are duplicate
+sampleRate = 0.03 
 trialCnt = 5000
 print('validRatio={0:4.3f}, duplicateAmongValid={1:4.3f}, sampleRatio={2:4.3f}\n'.format(validratio, dupratioAmongValid, sampleRate))
 
@@ -38,6 +39,8 @@ for i in tqdm(range(trialCnt)):
 df=pd.DataFrame({"cnt":duplicateCnts})
 df.to_csv('cnt.csv', index=None)
 print(df['cnt'].describe())
-print(df[df['cnt']>=34].shape[0]/df.shape[0])
 print(df['cnt'].quantile(0.9))
+failedratio = df[df['cnt']>=threshold].shape[0]/df.shape[0]
+print('failed ratio={0:5.4f}, {1} out of {2} times, threshold={3}'.format(failedratio,  df[df['cnt']>=threshold].shape[0], df.shape[0], threshold))
+
 
