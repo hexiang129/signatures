@@ -2,11 +2,11 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 
-totalSigCnt=int(19*10000)  #assume we submit 200k signatures
-validratio = 0.694
+totalSigCnt=int(19.5*10000)  #assume we submit 200k signatures
+validratio = 0.75
 dupratioAmongValid = 0.02
 sampleRate = 0.03
-trialCnt = 20000
+trialCnt = 5000
 print('validRatio={0:4.3f}, duplicateAmongValid={1:4.3f}, sampleRatio={2:4.3f}\n'.format(validratio, dupratioAmongValid, sampleRate))
 
 totalvalidCnt = int(totalSigCnt * validratio)
