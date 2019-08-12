@@ -1,3 +1,7 @@
+'''
+this file implements the sampled signature verification algorithm used by WA state
+and simulate how likely a referendum will pass the verification under given valid signature ratio and duplicate signature ratio
+'''
 from tqdm import tqdm
 import numpy as np
 import pandas as pd
@@ -11,19 +15,17 @@ def getthreshold(totalSigCnt, samplerate, SigCntNeeded, sampleValidRatio):
     maxAllowedDupInSampleUb = maxAllowedDupInSample - 1.6 * (maxAllowedDupInSample **0.5)
     return maxAllowedDupInSampleUb
     
-threshold = 11 #from last row in excel template
-validratio = 0.72  #assume 75% of it is valid, must change together with threshold
-
-totalSigCnt=int(21.3268*10000)  #assume we submit 195k signatures
-neededSigCnt = int(13*10000)
-dupratioAmongValid = 0.03 #assume among the valid signatures, 2% are duplicate
-sampleRate = 0.03 
-trialCnt = 5000
+validratio = 0.72  #assume 72% of submitted signatures are valid
+totalSigCnt=int(21.3268*10000)  #total number of signatures we submitted
+neededSigCnt = int(13*10000)    #how many signatures are neeeded to qualify the referendum
+dupratioAmongValid = 0.03 #assume among the valid signatures, 3% are duplicate
+sampleRate = 0.03   #sample rate used by WA secretary of state. should always be 3%
+trialCnt = 5000     #number of monte carlo trials
 print('validRatio={0:4.3f}, duplicateAmongValid={1:4.3f}, sampleRatio={2:4.3f}\n'.format(validratio, dupratioAmongValid, sampleRate))
 
 totalvalidCnt = int(totalSigCnt * validratio)
 
-duplicateCnt = int(totalvalidCnt * dupratioAmongValid) #and 1% of valid signatures are duplicate
+duplicateCnt = int(totalvalidCnt * dupratioAmongValid) 
 print('expect duplicate signatures {0}'.format(duplicateCnt))
 distinctCnt = (totalvalidCnt - 2 * duplicateCnt) + duplicateCnt
 
