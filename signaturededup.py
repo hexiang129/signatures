@@ -2,10 +2,12 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 
-threshold = 8 #from last row in excel template
-totalSigCnt=int(19.5*10000)  #assume we submit 195k signatures
-validratio = 0.75  #assume 75% of it is valid
-dupratioAmongValid = 0.02 #assume among the valid signatures, 2% are duplicate
+threshold = 11 #from last row in excel template
+validratio = 0.70  #assume 75% of it is valid, must change together with threshold
+
+totalSigCnt=int(21.3268*10000)  #assume we submit 195k signatures
+
+dupratioAmongValid = 0.03 #assume among the valid signatures, 2% are duplicate
 sampleRate = 0.03 
 trialCnt = 5000
 print('validRatio={0:4.3f}, duplicateAmongValid={1:4.3f}, sampleRatio={2:4.3f}\n'.format(validratio, dupratioAmongValid, sampleRate))
